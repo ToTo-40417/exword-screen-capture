@@ -1,0 +1,14 @@
+.venv/
+.venv-build/
+release-artifacts/
+__pycache__/
+*.pyc
+build/
+dist/
+dist-cli/
+*.egg-info/
+captures/
+*.spec
+!packaging/onefile.spec
+.DS_Store
+packaging/brain-preview/*.so

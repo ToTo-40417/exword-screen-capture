@@ -1,0 +1,49 @@
+name: Test and build capture app
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  cli:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install CLI only
+        run: python -m pip install .
+      - name: Test without GUI dependencies
+        run: python -m unittest discover -s tests -p test_headless.py -v
+      - name: Build CLI wheel
+        run: python packaging/build_cli.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: EXwordScreenCapture-cli-test
+          path: dist-cli/
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04, windows-2022, macos-14]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Python dependencies
+        run: python -m pip install -r requirements-build.txt
+      - name: Linux GUI libraries and recording tools
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libegl1 libopengl0 libxkbcommon0 libxkbcommon-x11-0 libxcb-keysyms1 libxcb-image0 libxcb-icccm4 libxcb-cursor0 libxcb-render-util0 ffmpeg
+      - name: Test
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python -m unittest discover -s tests -v
+      - name: Build local-test bundle
+        run: python packaging/build.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: EXwordScreenCapture-test-${{ runner.os }}-${{ runner.arch }}
+          path: dist/

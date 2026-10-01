@@ -1,0 +1,4 @@
+#!/bin/sh
+mkdir -p "$HOME/.local/state/exword-capture"
+exec /usr/bin/python3 /opt/exword-capture/exword-capture-preview.py \
+    --projector-mode "$@" >> "$HOME/.local/state/exword-capture/live.log" 2>&1

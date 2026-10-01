@@ -1,0 +1,9 @@
+-r requirements.txt
+pyinstaller==6.16.0
+pyinstaller-hooks-contrib==2026.8
+altgraph==0.17.5
+packaging==26.3
+setuptools==84.0.0
+macholib==1.16.4; sys_platform == "darwin"
+pefile==2023.2.7; sys_platform == "win32"
+pywin32-ctypes==0.2.3; sys_platform == "win32"

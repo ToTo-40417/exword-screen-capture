@@ -1,0 +1,2 @@
+# Optional Linux local-desktop access; installed only by an administrator.
+SUBSYSTEM=="usb", ATTR{idVendor}=="07cf", ATTR{idProduct}=="6101", TAG+="uaccess"

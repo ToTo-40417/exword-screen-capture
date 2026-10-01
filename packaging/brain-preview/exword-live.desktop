@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=EX-word Live
+Exec=/usr/local/bin/exword-live
+Icon=camera-photo
+Terminal=false
+Categories=Utility;
