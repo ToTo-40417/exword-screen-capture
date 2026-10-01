@@ -39,6 +39,7 @@ if sys.platform == "darwin":
                 "io.github.ToTo-40417.exword-screen-capture",
                 "--icon", str(root / "assets/exword-screen-capture.icns")]
 elif sys.platform == "win32":
+    command += ["--exclude-module", "PySide6.QtNetwork"]
     command += ["--version-file", str(root / "packaging/windows-version.txt"),
                 "--icon", str(root / "assets/exword-screen-capture.ico")]
 command.append(str(root / "launch.py"))
