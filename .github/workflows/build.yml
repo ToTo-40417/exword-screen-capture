@@ -43,7 +43,5 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Build local-test bundle
         run: python packaging/build.py
-      - uses: actions/upload-artifact@v4
-        with:
-          name: EXwordScreenCapture-test-${{ runner.os }}-${{ runner.arch }}
-          path: dist/
+      # Do not upload GUI bundles lacking the release's corresponding sources
+      # and reviewed native/licensing inventory. Test builds remain ephemeral.
